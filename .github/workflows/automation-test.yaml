@@ -15,7 +15,6 @@ on:
   schedule:
     - cron: '0 22 * * *'  # Runs at 3:30 AM IST daily
 
-
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -34,6 +33,9 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
       - name: Print API key and spring_profile_active
         run: |
           echo "🔐 API Key: $API_KEY"
@@ -41,4 +43,3 @@ jobs:
 
       - name: Run Gradle clean test
         run: ./gradlew clean test
-
