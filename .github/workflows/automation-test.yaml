@@ -1,0 +1,44 @@
+name: Gradle CI with Email Notification
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Choose environment'
+        required: true
+        default: 'test'
+        type: choice
+        options:
+          - test
+          - stage
+
+  schedule:
+    - cron: '0 22 * * *'  # Runs at 3:30 AM IST daily
+
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    env:
+      spring_profile_active: ${{ vars.spring_profile_active }}
+      API_KEY: ${{ secrets.API_KEY }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Print API key and spring_profile_active
+        run: |
+          echo "🔐 API Key: $API_KEY"
+          echo "🌱 spring_profile_active: $spring_profile_active"
+
+      - name: Run Gradle clean test
+        run: ./gradlew clean test
+

@@ -1,0 +1,2 @@
+api_key: ${API_KEY:default_key}
+spring_profile_active: ${spring_profile_active:test}
