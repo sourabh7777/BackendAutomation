@@ -47,3 +47,8 @@ dependencies {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+tasks.test {
+    useJUnitPlatform()
+    systemProperty("spring.profiles.active", findProperty("spring.profiles.active") ?: "stage")
+    systemProperty("api.key", findProperty("api.key") ?: "")
+}
