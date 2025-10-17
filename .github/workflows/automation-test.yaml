@@ -38,12 +38,14 @@ jobs:
 
       - name: Print environment and secret preview
         run: |
-          echo "🌱 SPRING_PROFILE_ACTIVE: $SPRING_PROFILE_ACTIVE"
+          echo "🌱 SPRING_PROFILE_ACTIVE: $SPRING_PROFILES_ACTIVE"
           echo "🔐 API_KEY starts with: ${API_KEY:0:4}****"
 
       - name: Run tests with profile and API key
         run: |
-          ./gradlew clean test "-Dspring.profiles.active=$SPRING_PROFILES_ACTIVE" "-Dapi.key=$API_KEY"
+          ./gradlew clean test \
+            -Dspring.profiles.active=${SPRING_PROFILES_ACTIVE} \
+            -Dapi.key=${API_KEY}
 
       - name: Send Email
         uses: dawidd6/action-send-mail@v4
