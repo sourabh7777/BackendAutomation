@@ -44,8 +44,8 @@ jobs:
       - name: Run tests with profile and API key
         run: |
           ./gradlew clean test \
-            --system-prop spring.profiles.active=${SPRING_PROFILES_ACTIVE} \
-            --system-prop api.key=${API_KEY}
+          -Dspring.profiles.active=${SPRING_PROFILES_ACTIVE} \
+          -Dapi.key=${API_KEY}
       
 
       - name: Send Email
