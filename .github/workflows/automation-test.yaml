@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      SPRING_PROFILE_ACTIVE: ${{ github.event.inputs.environment || vars.SPRING_PROFILE_ACTIVE }}
+      SPRING_PROFILES_ACTIVE: ${{ github.event.inputs.environment || vars.SPRING_PROFILE_ACTIVE }}
       API_KEY: ${{ secrets.API_KEY }}
 
     steps:
@@ -44,3 +44,22 @@ jobs:
       - name: Run tests with profile and API key
         run: |
           ./gradlew clean test "-Dspring.profiles.active=$SPRING_PROFILES_ACTIVE" "-Dapi.key=$API_KEY"
+
+      - name: Send Extent Report via Email
+        uses: devops-actions/email@v1.1.0
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "Extent Report - ${{ github.workflow }} (${{ github.event.inputs.environment || 'test' }})"
+          to: sourabhbehera916@gmail.com
+          from: sourabhbehera916@gmail.com
+          body: |
+            Hello,
+
+            Please find the attached Extent Report for the latest CI run.
+
+            Regards,
+            GitHub Actions
+          attachments: target/extent-report/spark.html

@@ -1,4 +1,3 @@
-// File: build.gradle.kts
 plugins {
     id("org.springframework.boot") version "3.1.5"
     id("io.spring.dependency-management") version "1.1.3"
@@ -22,17 +21,20 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
-    // Cucumber + Spring for JUnit Platform
+    // Cucumber 7 + Spring
     testImplementation("io.cucumber:cucumber-java:7.14.0")
     testImplementation("io.cucumber:cucumber-spring:7.14.0")
     testImplementation("io.cucumber:cucumber-junit-platform-engine:7.14.0")
-
-    // Add JUnit4 + Cucumber JUnit (JUnit4 runner) and allow running under the platform
-    testImplementation("junit:junit:4.13.2")
     testImplementation("io.cucumber:cucumber-junit:7.14.0")
-    testRuntimeOnly("org.junit.vintage:junit-vintage-engine")
+    testImplementation("io.cucumber:messages:17.0.0")
 
-    // JUnit 5
+    // Extent Report for Cucumber 7
+    testImplementation("tech.grasshopper:extentreports-cucumber7-adapter:1.5.1")
+    testImplementation("com.google.protobuf:protobuf-java:3.21.12")
+
+    // JUnit 4 + 5
+    testImplementation("junit:junit:4.13.2")
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine")
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 

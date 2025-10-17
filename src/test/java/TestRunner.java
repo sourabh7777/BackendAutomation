@@ -1,17 +1,17 @@
 
-
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/resources/features",                // Path to your .feature files
-        glue = {"stepDefination"},                     // Package containing step definitions
+        features = "src/test/resources/features",
+        glue = "stepDefination",
         plugin = {
-                "pretty",                                            // Console output
-                "html:target/cucumber-report.html",                  // HTML report
-                "json:target/cucumber-report.json"                   // JSON report
+                "pretty",
+                "html:target/cucumber-html-report.html",
+                "json:target/cucumber.json",
+                "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"  // Extent report plugin
         }
 )
 public class TestRunner {

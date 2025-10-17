@@ -1,4 +1,2 @@
 api.key: ${API_KEY:default_key}
-spring:
-  profiles:
-    active: ${SPRING_PROFILE_ACTIVE:stage}
+spring.profiles.active: ${SPRING_PROFILES_ACTIVE:stage}
