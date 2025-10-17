@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      SPRING_PROFILES_ACTIVE: ${{ github.event.inputs.environment || vars.SPRING_PROFILES_ACTIVE }}
+      SPRING_PROFILES_ACTIVE: ${{ github.event.inputs.environment }}
       API_KEY: ${{ secrets.API_KEY }}
 
     steps:
@@ -43,12 +43,25 @@ jobs:
 
       - name: Run tests with profile and API key
         run: |
+          SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE:-stage}
+          API_KEY=${API_KEY:-}
           ./gradlew clean test \
-          -Dspring.profiles.active=${SPRING_PROFILES_ACTIVE} \
-          -Dapi.key=${API_KEY}
-      
+            -Dspring.profiles.active=${SPRING_PROFILES_ACTIVE} \
+            -Dapi.key=${API_KEY}
+
+      - name: Upload Extent Report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: extent-report
+          path: target/extent-report/spark.html
+
+      - name: Print test failure summary
+        if: failure()
+        run: cat build/reports/tests/test/index.html | tail -n 50
 
       - name: Send Email
+        if: always()
         uses: dawidd6/action-send-mail@v4
         with:
           server_address: smtp.gmail.com
@@ -66,4 +79,3 @@ jobs:
             Regards,
             GitHub Actions
           attachments: target/extent-report/spark.html
-
