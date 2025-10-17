@@ -13,14 +13,14 @@ on:
           - stage
 
   schedule:
-    - cron: '0 22 * * *'  # Runs at 3:30 AM IST daily
+    - cron: '0 7 * * *'  # Runs at 12:30 PM IST daily
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
     env:
-      spring_profile_active: ${{ vars.SPRING_PROFILE_ACTIVE}}
+      SPRING_PROFILE_ACTIVE: ${{ vars.SPRING_PROFILE_ACTIVE }}
       API_KEY: ${{ secrets.API_KEY }}
 
     steps:
@@ -41,5 +41,5 @@ jobs:
           echo "🔐 API Key: $API_KEY"
           echo "🌱 spring_profile_active: $SPRING_PROFILE_ACTIVE"
 
-      - name: Run Gradle clean test
-        run: ./gradlew clean test
+      - name: Run Cucumber tests with environment
+        run: ./gradlew clean test -Dcucumber.features=src/test/resources/features -Dapi_key=$API_KEY -Dspring_profile_active=$SPRING_PROFILE_ACTIVE
