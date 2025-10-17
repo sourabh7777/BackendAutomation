@@ -1,8 +1,10 @@
 package stepDefination;
 import io.cucumber.java.en.*;
+import io.cucumber.spring.CucumberContextConfiguration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
+@CucumberContextConfiguration
 @SpringBootTest
 public class stepDefination {
 
