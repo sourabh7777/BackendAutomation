@@ -1,20 +1,21 @@
 package stepDefination;
+
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.service.ExtentService;
 import config.SpringConfig;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
 import io.cucumber.spring.CucumberContextConfiguration;
+import io.cucumber.spring.ScenarioScope;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-
 @Component
-@SpringBootTest(classes = SpringConfig.class)
+@ScenarioScope
 @CucumberContextConfiguration
+@SpringBootTest(classes = SpringConfig.class)
 public class stepDefination {
 
     @Autowired
@@ -31,9 +32,6 @@ public class stepDefination {
         ExtentReports extent = ExtentService.getInstance();
         String profile = env.getProperty("spring.profiles.active", "NOT_SET");
         String apiKey = env.getProperty("api.key", "NOT_SET");
-
-        System.out.println("🌱 spring_profile_active: " + profile);
-        System.out.println("🔐 api_key: " + apiKey);
 
         extent.setSystemInfo("Java Version", System.getProperty("java.version"));
         extent.setSystemInfo("OS", System.getProperty("os.name"));
