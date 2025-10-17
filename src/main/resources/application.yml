@@ -1,2 +1,2 @@
-api_key: ${API_KEY:default_key}
-spring_profile_active: ${SPRING_PROFILE_ACTIVE:test}
+API_KEY: ${API_KEY:default_key}
+SPRING_PROFILE_ACTIVE: ${SPRING_PROFILE_ACTIVE:prod}

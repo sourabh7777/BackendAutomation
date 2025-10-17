@@ -36,10 +36,6 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
-      - name: Print API key and spring_profile_active
-        run: |
-          echo "🔐 API Key: $API_KEY"
-          echo "🌱 spring_profile_active: $SPRING_PROFILE_ACTIVE"
 
       - name: Run Cucumber tests with environment
-        run: ./gradlew clean test -Dcucumber.features=src/test/resources/features -Dapi_key=$API_KEY -Dspring_profile_active=$SPRING_PROFILE_ACTIVE
+        run: ./gradlew clean test -Dcucumber.features=src/test/resources/features -DAPI_KEY=$API_KEY -DSPRING_PROFILE_ACTIVE=$SPRING_PROFILE_ACTIVE
