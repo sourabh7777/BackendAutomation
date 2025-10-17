@@ -8,10 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class stepDefination {
 
-    @Value("${spring_profile_active}")
+    @Value("${SPRING_PROFILE_ACTIVE}")
     private String springProfileActive;
 
-    @Value("${api_key}")
+    @Value("${API_KEY}")
     private String apiKey;
 
     @Given("the application context is loaded")
