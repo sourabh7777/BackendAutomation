@@ -49,6 +49,6 @@ tasks.withType<Test> {
 }
 tasks.test {
     useJUnitPlatform()
-    systemProperty("spring.profiles.active", System.getProperty("spring.profiles.active") ?: "stage")
-    systemProperty("api.key", System.getProperty("api.key") ?: "")
+    systemProperty("spring.profiles.active", System.getenv("SPRING_PROFILES_ACTIVE") ?: "stage")
+    systemProperty("api.key", System.getenv("API_KEY") ?: "")
 }
